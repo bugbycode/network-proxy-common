@@ -26,6 +26,11 @@
 			<artifactId>netty-all</artifactId>
 			<version>4.1.25.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.bugbycode</groupId>
+			<artifactId>https-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
 			<groupId>org.json</groupId>
