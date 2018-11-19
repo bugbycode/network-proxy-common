@@ -1,0 +1,53 @@
+package com.util.ssl;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLException;
+
+
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+
+public class SSLContextUtil {
+	public static SslContext getContext(String keystorePath,String password) {
+		SslContext sslContext;
+		KeyManagerFactory keyManagerFactory = null;
+		try {
+			KeyStore keyStore = KeyStore.getInstance("JKS");
+			keyStore.load(new FileInputStream(keystorePath), password.toCharArray());
+			keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
+			keyManagerFactory.init(keyStore,password.toCharArray());
+			sslContext = SslContextBuilder.forServer(keyManagerFactory).build();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (KeyStoreException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (UnrecoverableKeyException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (SSLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (CertificateException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		return sslContext;
+	}
+}
