@@ -7,6 +7,7 @@ import com.bugbycode.module.Authentication;
 import com.bugbycode.module.ConnectionInfo;
 import com.bugbycode.module.Message;
 import com.bugbycode.module.MessageCode;
+import com.util.EncriptUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -56,6 +57,9 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 				data = new byte[length];
 				in.readBytes(data);
 			}
+			
+			EncriptUtil.encriptArray(data);
+			EncriptUtil.encriptArray(token_buff);
 			
 			if(!(type == MessageCode.HEARTBEAT || type == MessageCode.AUTH ||
 					type == MessageCode.AUTH_ERROR || type == MessageCode.AUTH_SUCCESS)) {

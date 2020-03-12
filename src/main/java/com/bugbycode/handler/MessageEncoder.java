@@ -3,6 +3,7 @@ package com.bugbycode.handler;
 import com.bugbycode.module.ConnectionInfo;
 import com.bugbycode.module.Message;
 import com.bugbycode.module.MessageCode;
+import com.util.EncriptUtil;
 import com.bugbycode.module.Authentication;
 
 import io.netty.buffer.ByteBuf;
@@ -21,6 +22,9 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
 		}else {
 			token_buf = token.getBytes();
 		}
+		
+		EncriptUtil.encriptArray(token_buf);
+		
 		out.writeBytes(token_buf);
 		//发送消息类型
 		int type = msg.getType();
@@ -41,6 +45,9 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
 		}else {
 			body = new byte[0];
 		}
+
+		EncriptUtil.encriptArray(body);
+		
 		int length = body.length;
 		//发送消息长度和内容
 		out.writeInt(length);
