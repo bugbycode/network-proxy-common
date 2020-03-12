@@ -17,6 +17,8 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 
 	private final int HEADER_SIZE = 40;
 	
+	private EncriptUtil eu = new EncriptUtil();
+	
 	public MessageDecoder(int maxFrameLength, 
 			int lengthFieldOffset, 
 			int lengthFieldLength, 
@@ -58,8 +60,8 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
 				in.readBytes(data);
 			}
 			
-			EncriptUtil.encriptArray(data);
-			EncriptUtil.encriptArray(token_buff);
+			eu.encriptArray(data);
+			eu.encriptArray(token_buff);
 			
 			if(!(type == MessageCode.HEARTBEAT || type == MessageCode.AUTH ||
 					type == MessageCode.AUTH_ERROR || type == MessageCode.AUTH_SUCCESS)) {

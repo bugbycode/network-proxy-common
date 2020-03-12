@@ -2,9 +2,9 @@ package com.util;
 
 public class EncriptUtil {
 
-	private static byte[] KEY = {0x59,(byte)0xFE,0x17};
+	private byte[] KEY = {0x59,(byte)0xFE,0x17};
 	
-	public static void encriptArray(byte[] buff) {
+	public void encriptArray(byte[] buff) {
 		int len = buff.length;
 		int key_len = KEY.length;
 		for(int index = 0;index < len;index++) {

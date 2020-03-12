@@ -12,6 +12,8 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 public class MessageEncoder extends MessageToByteEncoder<Message> {
 
+	private EncriptUtil eu = new EncriptUtil();
+	
 	@Override
 	protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
 		String token = msg.getToken();
@@ -23,7 +25,7 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
 			token_buf = token.getBytes();
 		}
 		
-		EncriptUtil.encriptArray(token_buf);
+		eu.encriptArray(token_buf);
 		
 		out.writeBytes(token_buf);
 		//发送消息类型
@@ -46,7 +48,7 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
 			body = new byte[0];
 		}
 
-		EncriptUtil.encriptArray(body);
+		eu.encriptArray(body);
 		
 		int length = body.length;
 		//发送消息长度和内容
